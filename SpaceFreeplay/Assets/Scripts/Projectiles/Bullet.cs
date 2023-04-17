@@ -13,7 +13,6 @@ public class Bullet : MonoBehaviour
     {
         _currentLifeTime = lifeTime;
         transform.parent = transform.root;
-        transform.localScale = new Vector3(1, 1, 1);
     }
     
     void Update()

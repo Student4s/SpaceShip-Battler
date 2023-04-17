@@ -31,10 +31,12 @@ public class BMDv2 : ShipModule
     private float currentBulletSpeed=15;
     [SerializeField] private GameObject crutch;
     [SerializeField] private FCSbased fcs;
+    [SerializeField] private AudioSource shootAudio;
 
     private void Start()
     {
         currentBulletSpeed = pool.GetBulletSpeed();
+        shootAudio = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -55,6 +57,7 @@ public class BMDv2 : ShipModule
                     scatters.Rotate(Random.Range(-scatter, scatter), Random.Range(-scatter, scatter), 0);
                     
                     pool.SpawnBullet(shootPoint, scatters);
+                    shootAudio.PlayOneShot(shootAudio.clip);
                     currentTimeBetweenShot = timeBetweenShot;
                     currentBurstLength += 1;
                     ammunition -= 1;
@@ -89,10 +92,10 @@ public class BMDv2 : ShipModule
     {
         if (target != null)
         {
+
             crutch = fcs.FCSnewTarget(target, gunTower, currentBulletSpeed, crutch);
             
             Vector3 direction = (crutch.transform.position - gunTower.position).normalized;
-
 
             float crutchForRotationCheck = gunTower.localRotation.eulerAngles.y;
             if (crutchForRotationCheck > 180)
@@ -112,7 +115,7 @@ public class BMDv2 : ShipModule
             
 
             Vector3 targetDir = crutch.transform.position - gunTower.position;
-            Vector3 forward = gunTower.forward;
+            Vector3 forward = shootPoint.forward;
             float angleToTarget = -1 * Vector3.SignedAngle(targetDir, forward, Vector3.up);
             
             

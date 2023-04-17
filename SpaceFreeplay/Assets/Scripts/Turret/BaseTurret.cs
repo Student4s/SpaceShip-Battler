@@ -8,7 +8,7 @@ public class BaseTurret : ShipModule
 {
     [SerializeField] private float scatter;
     [SerializeField] private float rotationSpeed;
-    //[SerializeField] private float rotationAngle;
+    [SerializeField] private float maxRotationAngle;
     [SerializeField] private Transform target;
     [SerializeField] private Transform gunTower;
 
@@ -31,10 +31,11 @@ public class BaseTurret : ShipModule
     [SerializeField] private GameObject crutch;
     [SerializeField] private FCSbased fcs;
     [SerializeField] private ArtyPool pool;
-
+    [SerializeField] private AudioSource shootAudio;
     private void Start()
     {
         currentBulletSpeed = pool.GetBulletSpeed();
+        shootAudio = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -55,6 +56,7 @@ public class BaseTurret : ShipModule
                     scatters.Rotate(Random.Range(-scatter, scatter), Random.Range(-scatter, scatter), 0);
                     
                     pool.SpawnBullet(shootPoint, scatters);
+                    shootAudio.PlayOneShot(shootAudio.clip);
                     currentTimeBetweenShot = timeBetweenShot;
                     currentBurstLength += 1;
                     ammunition -= 1;

@@ -5,10 +5,9 @@ using UnityEngine;
 public class BaseRocketLauncher : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private float rotationAngle;
+    [SerializeField] private float maxRotationAngle;
     [SerializeField] private Transform target;
     [SerializeField] private Transform gunTower;
-    [SerializeField] private string hits;
 
     [SerializeField] private float timeBetweenShot;
     [SerializeField] private float currentTimeBetweenShot;
@@ -72,20 +71,38 @@ public class BaseRocketLauncher : MonoBehaviour
 
     void RotateToTarget(Transform target)
     {
-        Vector3 direction = (target.position - gunTower.position).normalized;
-        gunTower.rotation =
-            Quaternion.RotateTowards(gunTower.rotation, Quaternion.LookRotation(direction), rotationSpeed);
-
-        Debug.DrawRay(raycastPoint.position, raycastPoint.forward * 100, Color.red);
-        Ray ray = new Ray(raycastPoint.position, raycastPoint.forward);
-        
-        if (Physics.Raycast(ray, out RaycastHit hit,1000, layer))
+        if (target != null)
         {
-            hits = hit.collider.name;
-            if (hit.collider.CompareTag("Point"))
+
+            Vector3 direction = (target.transform.position - gunTower.position).normalized;
+
+            float crutchForRotationCheck = gunTower.localRotation.eulerAngles.y;
+            if (crutchForRotationCheck > 180)
+                crutchForRotationCheck -= 360;
+            
+            if (crutchForRotationCheck < maxRotationAngle && crutchForRotationCheck > -maxRotationAngle)
+            {
+                gunTower.rotation =
+                    Quaternion.RotateTowards(gunTower.rotation, Quaternion.LookRotation(direction), rotationSpeed); 
+                Debug.Log("Fsdf");
+            }
+            else
+            {
+                Debug.Log("Cant");
+            }
+            Vector3 targetDir = target.transform.position - gunTower.position;
+            Vector3 forward = shootPoint[0].forward;
+            float angleToTarget = -1 * Vector3.SignedAngle(targetDir, forward, Vector3.up);
+            
+            
+            if (angleToTarget <= 0.1 && angleToTarget>=-0.1)
                 canFire = true;
             else
                 canFire = false;
         }
-    }
+        else
+            canFire = false;
+        }
+
+
 }
