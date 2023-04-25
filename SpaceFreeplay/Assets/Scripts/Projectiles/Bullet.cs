@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : Projectile
 {
-    [SerializeField] private float speed = 1f;
+
     [SerializeField] private float lifeTime = 1f;
     private float _currentLifeTime;
     [SerializeField] private float damage = 1f;
-    public bool isActive=true;
     void Start()
     {
         _currentLifeTime = lifeTime;
@@ -25,13 +24,7 @@ public class Bullet : MonoBehaviour
         }
         transform.Translate(0, 0, 1 * speed * Time.deltaTime);
     }
-    
-    public void SetActive(bool state)
-    {
-        gameObject.SetActive(state);
-        isActive = state;
-    }
-    
+
     private void OnCollisionEnter(Collision collision)
     {
         if ( collision.collider.GetComponent<Missile>()!=null)
@@ -40,9 +33,5 @@ public class Bullet : MonoBehaviour
         }
         SetActive(false);
     }
-
-    public float GetSpeed()
-    {
-        return speed;
-    }
+    
 }

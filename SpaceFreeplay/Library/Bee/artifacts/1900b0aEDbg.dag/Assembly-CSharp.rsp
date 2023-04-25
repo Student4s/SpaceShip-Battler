@@ -345,6 +345,7 @@
 "Assets/Scripts/Projectiles/BasedProjectile.cs"
 "Assets/Scripts/Projectiles/Bullet.cs"
 "Assets/Scripts/Projectiles/Missile.cs"
+"Assets/Scripts/Projectiles/Projectile.cs"
 "Assets/Scripts/Projectiles/Rockets/DefRocket.cs"
 "Assets/Scripts/Projectiles/Rockets/RocketV1.cs"
 "Assets/Scripts/Projectiles/Rockets/RocketV2.cs"
@@ -363,7 +364,7 @@
 "Assets/Scripts/Turret/BaseTurret.cs"
 "Assets/Scripts/Turret/BMDv2.cs"
 "Assets/Scripts/Turret/Pools/ArtyPool.cs"
-"Assets/Scripts/Turret/Pools/BMDpool.cs"
+"Assets/Scripts/Turret/Pools/BulletPool.cs"
 "Assets/Scripts/Turret/Radar.cs"
 "Assets/Scripts/UIComputer.cs"
 -langversion:9.0

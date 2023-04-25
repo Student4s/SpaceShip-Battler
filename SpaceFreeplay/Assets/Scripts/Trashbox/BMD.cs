@@ -29,7 +29,7 @@ public class BMD : ShipModule
 
     [SerializeField] private bool canFire;
     [SerializeField] private Radar radar;
-    [SerializeField] private BMDpool pool;
+    [SerializeField] private BulletPool pool;
     [SerializeField] private LayerMask layer;
 
     public delegate void UseModule(float heat);

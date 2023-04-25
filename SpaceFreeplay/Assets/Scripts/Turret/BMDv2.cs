@@ -26,7 +26,7 @@ public class BMDv2 : ShipModule
 
     [SerializeField] private bool canFire;
     [SerializeField] private Radar radar;
-    [SerializeField] private BMDpool pool;
+    [SerializeField] private BulletPool pool;
 
     private float currentBulletSpeed=15;
     [SerializeField] private GameObject crutch;

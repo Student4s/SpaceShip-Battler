@@ -30,7 +30,7 @@ public class BaseTurret : ShipModule
     
     [SerializeField] private GameObject crutch;
     [SerializeField] private FCSbased fcs;
-    [SerializeField] private ArtyPool pool;
+    [SerializeField] private BulletPool pool;
     [SerializeField] private AudioSource shootAudio;
     private void Start()
     {
