@@ -30,7 +30,7 @@ public class BMDv2 : ShipModule
 
     private float currentBulletSpeed=15;
     [SerializeField] private GameObject crutch;
-    [SerializeField] private FCSbased fcs;
+    [SerializeField] private FCSv1 fcs;
     [SerializeField] private AudioSource shootAudio;
 
     private void Start()
@@ -104,8 +104,7 @@ public class BMDv2 : ShipModule
             if (crutchForRotationCheck < maxRotationAngle && crutchForRotationCheck > -maxRotationAngle)
             {
                 gunTower.rotation =
-                    Quaternion.RotateTowards(gunTower.rotation, Quaternion.LookRotation(direction), rotationSpeed); 
-                Debug.Log("Fsdf");
+                    Quaternion.RotateTowards(gunTower.rotation, Quaternion.LookRotation(direction), rotationSpeed);
             }
             else
             {

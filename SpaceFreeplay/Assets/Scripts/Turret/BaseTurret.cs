@@ -8,7 +8,7 @@ public class BaseTurret : ShipModule
 {
     [SerializeField] private float scatter;
     [SerializeField] private float rotationSpeed;
-    [SerializeField] private float maxRotationAngle;
+    //[SerializeField] private float maxRotationAngle;
     [SerializeField] private Transform target;
     [SerializeField] private Transform gunTower;
 
@@ -16,6 +16,7 @@ public class BaseTurret : ShipModule
     [SerializeField] private float currentTimeBetweenShot;
 
     [SerializeField] private float ammunition;
+    [SerializeField] private string ammunitionType;
     [SerializeField] private Transform shootPoint;
 
     [SerializeField] private float burstLength;
@@ -29,9 +30,12 @@ public class BaseTurret : ShipModule
     private float currentBulletSpeed = 15;
     
     [SerializeField] private GameObject crutch;
-    [SerializeField] private FCSbased fcs;
+    [SerializeField] private FCSv1 fcs;
     [SerializeField] private BulletPool pool;
     [SerializeField] private AudioSource shootAudio;
+    
+    public delegate void Shoot(string ammunitionType);
+    public static event  Shoot MinusAmmo;
     private void Start()
     {
         currentBulletSpeed = pool.GetBulletSpeed();
@@ -44,7 +48,7 @@ public class BaseTurret : ShipModule
         RotateToTarget(target);
     }
 
-    void Burst()
+    public void Burst()
     {
         if (ammunition > 0 && canFire)
         {
@@ -62,6 +66,7 @@ public class BaseTurret : ShipModule
                     ammunition -= 1;
                     
                     shootPoint.rotation = new Quaternion(0, 0, 0, 0);
+                    MinusAmmo(ammunitionType);
                 }
                 else
                     currentTimeBetweenShot -= Time.deltaTime;
@@ -102,7 +107,7 @@ public class BaseTurret : ShipModule
             Vector3 forward = gunTower.forward;
             float angleToTarget = -1 * Vector3.SignedAngle(targetDir, forward, Vector3.up);
             
-            
+            //Debug.Log(angleToTarget);
             if (angleToTarget <= 0.01 && angleToTarget>=-0.01)
                 canFire = true;
             else
